@@ -2,20 +2,20 @@ import { useEffect, useState } from "react";
 
 
 function getSavedForm(key: string, initialValue: any) {
-    const savedForm = JSON.parse(sessionStorage.getItem(key)!)
-    if (savedForm) return savedForm
+    const savedPage = JSON.parse(sessionStorage.getItem(key)!)
+    if (savedPage) return savedPage
 
     if (initialValue instanceof Function) return initialValue()
     return initialValue
 
 }
 export default function useLocalSession(name: string, initialValue: any) {
-    const [form, setForm] = useState(() => getSavedForm(name, initialValue))
+    const [page, setPage] = useState(() => getSavedForm(name, initialValue))
 
     useEffect(() => {
 
-        sessionStorage.setItem(name, JSON.stringify(form))
-    }, [form])
+        sessionStorage.setItem(name, JSON.stringify(page))
+    }, [page])
 
-    return [form, setForm]
+    return [page, setPage]
 }

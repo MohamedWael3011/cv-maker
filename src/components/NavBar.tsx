@@ -1,14 +1,18 @@
 import i18next from "i18next";
 import { LangButton } from "./LangButton";
-import { useLanguage } from "@/LanguageContext";
+import { useLanguage } from "@/hooks/LanguageContext";
+import { useEffect } from "react";
 
 
 export function NavBar() {
     const { selectedLanguage, setSelectedLanguage } = useLanguage();
+    useEffect(() => {
+        i18next.changeLanguage(selectedLanguage.toLocaleLowerCase())
+        document.body.dir = selectedLanguage == 'AR' ? 'rtl' : 'ltr'
+    }, [selectedLanguage])
     function changeLanguage(lang: string) {
         setSelectedLanguage(lang)
-        i18next.changeLanguage(lang.toLocaleLowerCase())
-        document.body.dir = lang == 'AR' ? 'rtl' : 'ltr'
+
     }
     return (
         <nav className='flex justify-end px- m-5' >

@@ -1,11 +1,13 @@
 
 import { WelcomePage } from './pages/WelcomePage'
-import { LanguageProvider } from './LanguageContext';
+import { LanguageProvider } from './hooks/LanguageContext';
+import { FormContextProvider } from './hooks/FormContext';
+
 import { NavBar } from './components/NavBar';
 import { Route, Routes } from 'react-router-dom';
 import { ProgressForm } from './pages/ProgressForm';
 import i18n from "i18next";
-import {  initReactI18next } from "react-i18next";
+import { initReactI18next } from "react-i18next";
 import LanguageDetector from 'i18next-browser-languagedetector'
 import HttpApi from 'i18next-http-backend';
 
@@ -31,15 +33,19 @@ i18n
 
 function App() {
 
+
   return (
     <>
       <LanguageProvider>
-        <NavBar />
-        <Routes>
-          <Route path='/' element={<WelcomePage />} />
-          <Route path='/build' element={<ProgressForm />} />
+        <FormContextProvider>
 
-        </Routes>
+          <NavBar />
+          <Routes>
+            <Route path='/' element={<WelcomePage />} />
+            <Route path='/build' element={<ProgressForm />} />
+          </Routes>
+        </FormContextProvider>
+
       </LanguageProvider>
 
     </>
