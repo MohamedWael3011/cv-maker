@@ -5,6 +5,7 @@ import Education from "./Education";
 import useLocalSession from "../hooks/useLocalSession"
 import { useFormContext } from "../hooks/FormContext"
 import Experience from "./Experience";
+import Skills from "./Skills";
 
 export function ProgressForm() {
     /**
@@ -19,7 +20,8 @@ export function ProgressForm() {
     const DisplayPage: any = {
         0: <PersonalInfo />,
         1: <Education />,
-        2: <Experience />
+        2: <Experience />,
+        3: <Skills />
     }
 
 

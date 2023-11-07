@@ -5,13 +5,15 @@ import React, { createContext, useContext } from 'react';
 import useFormPersist from 'react-hook-form-persist'
 
 type FormContextType = {
-    fields: Record<"id", string>[]
-    append: any
-    prepend: any
-    remove: any
+    ExpFields: Record<"id", string>[]
+    ExpAppend: any
+    ExpRemove: any
     register: any
     watch: any
     control: any
+    SkillFields: Record<"id", string>[]
+    SkillAppend: any
+    SkillRemove: any
 };
 
 type FormProviderProps = {
@@ -33,7 +35,8 @@ interface FormData {
     studyField: string
     startDate: string
     endDate: string
-    experience: any[] //[{}]
+    experience: any[], //[{}]
+    skills: any[]
 
 }
 export const FormContext = createContext<FormContextType | undefined>(undefined);
@@ -41,13 +44,17 @@ export const FormContext = createContext<FormContextType | undefined>(undefined)
 export const FormContextProvider: React.FC<FormProviderProps> = ({ children }) => {
     const { watch, register, setValue, control } = useForm<FormData>({
         // defaultValues: { experience: [{ jobTitle: "", employer: "", location: "", startDate: "", endDate: "" }] }
-    })
-    const { fields, append, prepend, remove } = useFieldArray({
+    });
+    const { fields: ExpFields, append: ExpAppend, remove: ExpRemove } = useFieldArray({
         name: "experience",
         control,
 
-    })
+    });
+    const { fields: SkillFields, append: SkillAppend, remove: SkillRemove } = useFieldArray({
+        name: "skills",
+        control,
 
+    });
     useFormPersist("formData", {
         watch,
         setValue,
@@ -55,7 +62,7 @@ export const FormContextProvider: React.FC<FormProviderProps> = ({ children }) =
     });
 
     return (
-        <FormContext.Provider value={{ control, watch, fields, append, prepend, remove, register }}>
+        <FormContext.Provider value={{ control, watch, ExpFields, ExpAppend, ExpRemove, SkillFields, SkillAppend, SkillRemove, register }}>
             {children}
         </FormContext.Provider>
     );
@@ -64,7 +71,7 @@ export const FormContextProvider: React.FC<FormProviderProps> = ({ children }) =
 export const useFormContext = (): FormContextType => {
     const formContext = useContext(FormContext);
     if (!formContext) {
-        throw new Error('useLanguage must be used within a LanguageProvider');
+        throw new Error('useFormContext must be used within a FormContextProvider');
     }
     return formContext;
 };

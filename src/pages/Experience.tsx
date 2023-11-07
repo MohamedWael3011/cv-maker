@@ -5,19 +5,19 @@ import { useFormContext } from "../hooks/FormContext"
 import { useEffect } from "react";
 
 export default function Experience() {
-  const { register, fields, append, remove } = useFormContext();
+  const { register, ExpFields, ExpAppend, ExpRemove } = useFormContext();
   useEffect(() => {
-    if (!fields.length) {
-      append({ jobTitle: "", employer: "", location: "", startDate: "", endDate: "" });
+    if (!ExpFields.length) {
+      ExpAppend();
     }
-  }, [])
+  }, [ExpFields, ExpAppend]);
   return (
     <div className="flex flex-col justify-center items-center gap-10">
       <div className="p-5 w-4/5 h-[500px] text-white">
         <div className="h-4/5 overflow-auto">
           <form className="flex flex-col gap-2">
-            {
-              fields.map((field, index) => { // ! 4of a3ml append ezay DONE
+            {ExpFields.length &&
+              ExpFields.map((field, index) => { // ! 4of a3ml append ezay DONE
                 return (
                   <div className="my-3" key={field.id}>
                     <div className="grid grid-cols-2 gap-5">
@@ -43,7 +43,7 @@ export default function Experience() {
                       </div>
                     </div>
                     <div className="flex justify-end">
-                      {fields.length > 1 && <Button variant="outline" className="text-black p-2 m-2" onClick={() => remove(index)}>Remove</Button>}
+                      {ExpFields.length > 1 && <Button variant="outline" className="text-black p-2 m-2" onClick={() => ExpRemove(index)}>Remove</Button>}
                     </div>
                   </div>
                 )
@@ -52,7 +52,7 @@ export default function Experience() {
 
           </form>
         </div>
-        <Button variant="outline" className="text-black p-2 m-2" onClick={() => { append({ jobTitle: "", employer: "", location: "", startDate: "", endDate: "" }); }}>Add Other Job</Button>
+        {ExpFields.length < 4 && <Button variant="outline" className="text-black p-2 m-2" onClick={() => { ExpAppend(); }}>Add Another Job</Button>}
       </div>
 
     </div>

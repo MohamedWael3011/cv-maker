@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 
-function getSavedForm(key: string, initialValue: any) {
+function getSavedForm(key: string, initialValue: unknown) {
     const savedPage = JSON.parse(sessionStorage.getItem(key)!)
     if (savedPage) return savedPage
 
@@ -9,7 +9,7 @@ function getSavedForm(key: string, initialValue: any) {
     return initialValue
 
 }
-export default function useLocalSession(name: string, initialValue: any) {
+export default function useLocalSession(name: string, initialValue: unknown) {
     const [page, setPage] = useState(() => getSavedForm(name, initialValue))
 
     useEffect(() => {
