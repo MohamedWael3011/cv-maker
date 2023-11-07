@@ -2,7 +2,6 @@
 import { WelcomePage } from './pages/WelcomePage'
 import { LanguageProvider } from './hooks/LanguageContext';
 import { FormContextProvider } from './hooks/FormContext';
-
 import { NavBar } from './components/NavBar';
 import { Route, Routes } from 'react-router-dom';
 import { ProgressForm } from './pages/ProgressForm';
